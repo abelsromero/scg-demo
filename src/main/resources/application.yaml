@@ -1,0 +1,23 @@
+management:
+  endpoint:
+    metrics:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "metrics"
+spring:
+  cloud:
+    gateway:
+      routes:
+        - uri: https://github.com
+          predicates:
+            - Path=/github/**
+          filters:
+            - StripPrefix=1
+        - uri: https://httpbin.org
+          predicates:
+            - Path=/get/**
+          filters:
+            - StripPrefix=0
+
